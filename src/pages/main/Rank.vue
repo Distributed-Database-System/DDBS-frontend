@@ -1,7 +1,9 @@
 <template>
   <el-container class="ArticleList-container">
     <el-header height="120px" v-show="showHeader">
-      <ArticleSearchHeader @search="onSearch"/>
+      <DailySearchHeader v-if="this.$route.params.type=='daily'" @search="onSearch"/>
+      <WeeklySearchHeader v-if="this.$route.params.type=='weekly'" @search="onSearch"/>
+      <MonthlySearchHeader v-if="this.$route.params.type=='monthly'" @search="onSearch"/>
     </el-header>
     <el-main>
       <div class="header-show-switch" @click="showHeader=!showHeader" :style="{top: showHeader? '120px' : '0'}">
@@ -9,30 +11,35 @@
           <i class="el-icon-more" style="position: relative; top: -20px;"/>
         </el-tooltip>
       </div>
-      <ArticleList ref="ArticleList"/>
+      <ArticleList ref="ArticleList" :pageable="false"/>
     </el-main>
   </el-container>
 </template>
 
 <script>
-import ArticleSearchHeader from './components/ArticleSearchHeader.vue'
+import DailySearchHeader from './components/DailySearchHeader.vue'
+import WeeklySearchHeader from './components/WeeklySearchHeader.vue'
+import MonthlySearchHeader from './components/MonthlySearchHeader.vue'
 import ArticleList from './components/ArticleList.vue'
 export default {
-  components: { ArticleSearchHeader, ArticleList },
+  components: { DailySearchHeader, WeeklySearchHeader, MonthlySearchHeader, ArticleList },
   data () {
     return {
       showHeader: true
     }
   },
+  watch: {
+    '$route' () {
+      this.$refs.ArticleList.getRank(this.$route.params.type, new Date().getTime())
+    }
+  },
   mounted () {
-    this.$refs.ArticleList.search({
-      aid: '',
-      title: ''
-    })
+    this.$refs.ArticleList.getRank(this.$route.params.type, new Date().getTime())
   },
   methods: {
-    onSearch (params) {
-      this.$refs.ArticleList.search(params)
+    onSearch (timestamp) {
+      console.log(this.$route.params)
+      this.$refs.ArticleList.getRank(this.$route.params.type, timestamp.timestamp)
     }
   }
 }

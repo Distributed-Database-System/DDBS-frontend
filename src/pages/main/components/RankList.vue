@@ -42,10 +42,11 @@
       </span>
     </el-dialog>
 
-    <div v-if="pageable" class="pagination">
+    <div class="pagination">
       <el-pagination
+        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :page-sizes="[10]"
+        :page-sizes="[10, 15, 20]"
         :page-size="pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="totalSize">
@@ -59,8 +60,8 @@ import ArticleDetail from '../ArticleDetail.vue'
 export default {
   components: { ArticleDetail },
   props: {
-    pageable: {
-      default: true
+    status: {
+      default: 'PUBLIC'
     }
   },
   data () {
@@ -74,7 +75,26 @@ export default {
       detail: {}
     }
   },
+  created () {
+    this.getArticleList()
+  },
+  watch: {
+    '$route' () {
+      document.title = 'Article'
+      this.tableData = []
+      this.pageNo = 1
+      this.pageSize = 10
+      this.aid = ''
+      this.title = ''
+      this.totalSize = 0
+      this.getArticleList()
+    }
+  },
   methods: {
+    handleSizeChange (val) {
+      this.pageSize = val
+      this.getArticleList()
+    },
     handleCurrentChange (val) {
       this.pageNo = val
       this.getArticleList()
@@ -103,16 +123,6 @@ export default {
       }).then(res => {
         this.tableData = res.data.data
         this.totalSize = res.data.total
-      })
-    },
-    getRank (type, timestamp) {
-      this.$store.dispatch('getRank', {
-        type: type,
-        timestamp: timestamp
-      }).then(res => {
-        console.log(res)
-        this.tableData = res.data
-        this.totalSize = res.data.length
       })
     }
   }

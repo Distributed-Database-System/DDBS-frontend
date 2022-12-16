@@ -31,6 +31,11 @@ const policyInterpretion = {
       const res = await fetch.post(url, data)
       return res
     },
+    getRank: async ({ state, dispatch, commit }, data) => {
+      let url = '/blog/getRank'
+      const res = await fetch.post(url, data)
+      return res
+    },
     getPIList: async ({ state, dispatch, commit }, data) => {
       let url = '/policyInterpretation/list'
       const res = await fetch.post(url, data)

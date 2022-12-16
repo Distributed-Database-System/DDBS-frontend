@@ -30,9 +30,23 @@ export default {
           selected: false
         },
         {
-          name: 'PIABOLISH',
-          label: 'Rank',
-          path: '/pi/abolish',
+          name: 'DAILY_RANK',
+          label: 'Daily Rank',
+          path: '/pi/rank/daily',
+          icon: 'el-icon-document-delete',
+          selected: false
+        },
+        {
+          name: 'WEEKLY_RANK',
+          label: 'Weekly Rank',
+          path: '/pi/rank/weekly',
+          icon: 'el-icon-document-delete',
+          selected: false
+        },
+        {
+          name: 'MONTHLY_RANK',
+          label: 'Monthly Rank',
+          path: '/pi/rank/monthly',
           icon: 'el-icon-document-delete',
           selected: false
         },

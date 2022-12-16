@@ -4,6 +4,7 @@ import Container from '@/pages/main/Container'
 import Help from '@/pages/main/Help'
 import PIListContainer from '@/pages/main/PIListContainer'
 import Users from '@/pages/main/Users'
+import Rank from '@/pages/main/Rank'
 import Articles from '@/pages/main/Articles'
 import PICreate from '@/pages/main/PICreate'
 import ArticleDetail from '@/pages/main/ArticleDetail'
@@ -31,6 +32,11 @@ export default new Router({
           path: '/pi/users',
           name: 'Users',
           component: Users
+        },
+        {
+          path: '/pi/rank/:type',
+          name: 'Rank',
+          component: Rank
         },
         {
           path: '/pi/articles',

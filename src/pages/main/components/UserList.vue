@@ -67,9 +67,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :page-sizes="[10, 15, 20]"
+        :page-sizes="[10]"
         :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next"
         :total="totalSize">
       </el-pagination>
     </div>

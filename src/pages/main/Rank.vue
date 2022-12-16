@@ -11,7 +11,7 @@
           <i class="el-icon-more" style="position: relative; top: -20px;"/>
         </el-tooltip>
       </div>
-      <ArticleList ref="ArticleList" :pageable="false"/>
+      <ArticleList ref="ArticleList" :rank="true"/>
     </el-main>
   </el-container>
 </template>

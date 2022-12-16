@@ -4,6 +4,12 @@
       :data="tableData"
       stripe>
       <el-table-column
+        width="200px"
+        v-if="rank"
+        type="index"
+        label="Rank">
+      </el-table-column>
+      <el-table-column
         prop="aid"
         label="Aid">
       </el-table-column>
@@ -42,12 +48,12 @@
       </span>
     </el-dialog>
 
-    <div v-if="pageable" class="pagination">
+    <div v-if="!rank" class="pagination">
       <el-pagination
         @current-change="handleCurrentChange"
         :page-sizes="[10]"
         :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next"
         :total="totalSize">
       </el-pagination>
     </div>
@@ -59,8 +65,8 @@ import ArticleDetail from '../ArticleDetail.vue'
 export default {
   components: { ArticleDetail },
   props: {
-    pageable: {
-      default: true
+    rank: {
+      default: false
     }
   },
   data () {

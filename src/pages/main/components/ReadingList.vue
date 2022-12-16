@@ -63,9 +63,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :page-sizes="[10, 15, 20]"
+        :page-sizes="[10]"
         :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next"
         :total="totalSize">
       </el-pagination>
     </div>
@@ -119,6 +119,8 @@ export default {
         pageSize: this.pageSize,
         pageNo: this.pageNo
       }).then(res => {
+        console.log()
+        this.totalSize = res.data.total
         this.tableData = res.data.data
         for (var i = 0; i < this.tableData.length; i++) {
           console.log(this.tableData[i])
@@ -137,7 +139,6 @@ export default {
             this.tableData[i].agreeOrNot = 'false'
           }
         }
-        this.totalSize = res.data.total
       })
     }
   }

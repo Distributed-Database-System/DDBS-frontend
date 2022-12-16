@@ -86,7 +86,7 @@
             <template slot="label">
               Image&Video
             </template>
-            {{ detail.abstract || '无' }}
+            {{ detail.abstract || 'TODO' }}
           </el-descriptions-item>
         </el-descriptions>
       </div>

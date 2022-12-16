@@ -28,16 +28,16 @@
         label="readTimeLength">
       </el-table-column>
       <el-table-column
+        prop="agreeOrNot"
+        label="AgreeOrNot">
+      </el-table-column>
+      <el-table-column
+        prop="shareOrNot"
+        label="AhareOrNot">
+      </el-table-column>
+      <el-table-column
         prop="comment"
-        label="comment">
-      </el-table-column>
-      <el-table-column
-        prop="AgreeOrNot"
-        label="agreeOrNot">
-      </el-table-column>
-      <el-table-column
-        prop="ShareOrNot"
-        label="shareOrNot">
+        label="Comment">
       </el-table-column>
       <el-table-column
         label="Detail"
@@ -87,9 +87,6 @@ export default {
       detail: {}
     }
   },
-  created () {
-    this.getUserList()
-  },
   watch: {
     '$route' () {
       document.title = 'Article'
@@ -118,13 +115,6 @@ export default {
       }).then(res => {
         this.detail = res.data
       })
-      // this.$refs.detail.getArticleDetail(val.aid, 1)
-      // this.$router.push({
-      //   name: 'ArticleDetail',
-      //   params: {
-      //     id: val.aid
-      //   }
-      // })
     },
     getReadingList () {
       this.$store.dispatch('getReadingList', {
@@ -133,6 +123,23 @@ export default {
         pageNo: this.pageNo
       }).then(res => {
         this.tableData = res.data.data
+        for (var i = 0; i < this.tableData.length; i++) {
+          console.log(this.tableData[i])
+          console.log()
+          if (this.tableData[i].commentOrNot === '1') {
+            this.tableData[i].comment = res.data.data[i].commentDetail
+          }
+          if (this.tableData[i].shareOrNot === '1') {
+            this.tableData[i].shareOrNot = 'true'
+          } else {
+            this.tableData[i].shareOrNot = 'false'
+          }
+          if (this.tableData[i].agreeOrNot === '1') {
+            this.tableData[i].agreeOrNot = 'true'
+          } else {
+            this.tableData[i].agreeOrNot = 'false'
+          }
+        }
         this.totalSize = res.data.total
       })
     }

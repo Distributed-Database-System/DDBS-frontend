@@ -10,8 +10,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 import * as echarts from 'echarts'
 import 'echarts-wordcloud/dist/echarts-wordcloud'
 import 'echarts-wordcloud/dist/echarts-wordcloud.min'
+import locale from 'element-ui/lib/locale/lang/en'
+
 Vue.prototype.$echarts = echarts
-Vue.use(ElementUI)
+Vue.use(ElementUI, { locale })
 Vue.use(less)
 Vue.config.productionTip = false
 

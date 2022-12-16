@@ -1,4 +1,4 @@
-# cbirc_pi_frontend
+# DDBS_frontend
 
 > A Vue.js project
 

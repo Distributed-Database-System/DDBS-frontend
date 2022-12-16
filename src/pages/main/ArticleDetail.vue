@@ -102,27 +102,13 @@
 
 <script>
 import flvjs from 'flv.js'
+import fetch from '@/utils/fetch'
 export default {
   data () {
     return {
       aid: '',
       detail: {}
     }
-  },
-  mounted () {
-    // if (flvjs.isSupported()) {
-    //   var videoElement = document.getElementById('videoElement')
-    //   this.flvPlayer = flvjs.createPlayer({
-    //     type: 'flv',
-    //     isLive: true,
-    //     hasAudio: false,
-    //     url: 'http://localhost:8080/blog/video/1'
-    //     // 自己的flv视频流
-    //   })
-    //   this.flvPlayer.attachMediaElement(videoElement)
-    //   this.flvPlayer.load()
-    //   this.flvPlayer.play()
-    // }
   },
   watch: {
     '$route' (to, from) {
@@ -140,13 +126,14 @@ export default {
       }).then(res => {
         this.detail = res.data
         console.log('display video')
+        console.log(fetch.devBaseUrl)
         if (res.data.video && flvjs.isSupported()) {
           var videoElement = document.getElementById('videoElement')
           this.flvPlayer = flvjs.createPlayer({
             type: 'flv',
             isLive: true,
             hasAudio: false,
-            url: 'http://localhost:8080/blog/video/' + res.data.video
+            url: 'http://localhost:8088/blog/video/' + res.data.video
             // 自己的flv视频流
           })
           this.flvPlayer.attachMediaElement(videoElement)
@@ -156,7 +143,7 @@ export default {
       })
     },
     parseImageUrl (name) {
-      return 'http://localhost:8080/blog/picture/' + name
+      return 'http://localhost:8088/blog/picture/' + name
     },
     play () {
       this.flvPlayer.play()

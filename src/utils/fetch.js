@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
-const devBaseUrl = 'http://localhost:8080'
+const devBaseUrl = 'http://localhost:8088'
 const prodBaseUrl = ''
 
 let baseUrl = process.env.NODE_ENV === 'development' ? devBaseUrl : prodBaseUrl

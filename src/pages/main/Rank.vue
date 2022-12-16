@@ -30,11 +30,11 @@ export default {
   },
   watch: {
     '$route' () {
-      this.$refs.ArticleList.getRank(this.$route.params.type, new Date().getTime())
+      this.$refs.ArticleList.getRank(this.$route.params.type, new Date('2017/9/25 00:00:00').getTime())
     }
   },
   mounted () {
-    this.$refs.ArticleList.getRank(this.$route.params.type, new Date().getTime())
+    this.$refs.ArticleList.getRank(this.$route.params.type, new Date('2017/9/25 00:00:00').getTime())
   },
   methods: {
     onSearch (timestamp) {

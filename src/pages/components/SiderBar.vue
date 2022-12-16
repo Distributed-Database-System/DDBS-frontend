@@ -49,14 +49,14 @@ export default {
           path: '/pi/rank/monthly',
           icon: 'el-icon-document-delete',
           selected: false
-        },
-        {
-          name: 'PICreate',
-          label: '新增政策解读',
-          path: '/pi/create',
-          icon: 'el-icon-document-add',
-          selected: false
         }
+        // {
+        //   name: 'PICreate',
+        //   label: '新增政策解读',
+        //   path: '/pi/create',
+        //   icon: 'el-icon-document-add',
+        //   selected: false
+        // }
       ]
     }
   },

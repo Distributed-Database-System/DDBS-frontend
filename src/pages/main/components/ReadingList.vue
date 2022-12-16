@@ -83,8 +83,7 @@ export default {
       tableData: [],
       pageNo: 1,
       pageSize: 10,
-      title: '',
-      detail: {}
+      title: ''
     }
   },
   watch: {
@@ -109,11 +108,9 @@ export default {
     },
     seeDetail (val) {
       this.dialogVisible = true
-      this.$store.dispatch('getArticleDetail', {
-        uid: 1,
-        aid: val.aid
-      }).then(res => {
-        this.detail = res.data
+      this.$nextTick(() => {
+        console.log(this.$refs.detail)
+        this.$refs.detail.getArticleDetail(1, val.aid)
       })
     },
     getReadingList () {

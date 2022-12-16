@@ -102,7 +102,7 @@
 
 <script>
 import flvjs from 'flv.js'
-import fetch from '@/utils/fetch'
+const devBaseUrl = 'http://localhost:8088'
 export default {
   data () {
     return {
@@ -119,21 +119,20 @@ export default {
     }
   },
   methods: {
-    getArticleDetail (aid, uid) {
+    getArticleDetail (uid, aid) {
       this.$store.dispatch('getArticleDetail', {
         uid: uid,
         aid: aid
       }).then(res => {
         this.detail = res.data
         console.log('display video')
-        console.log(fetch.devBaseUrl)
         if (res.data.video && flvjs.isSupported()) {
           var videoElement = document.getElementById('videoElement')
           this.flvPlayer = flvjs.createPlayer({
             type: 'flv',
             isLive: true,
             hasAudio: false,
-            url: 'http://localhost:8088/blog/video/' + res.data.video
+            url: devBaseUrl + '/blog/video/' + res.data.video
             // 自己的flv视频流
           })
           this.flvPlayer.attachMediaElement(videoElement)
@@ -143,7 +142,7 @@ export default {
       })
     },
     parseImageUrl (name) {
-      return 'http://localhost:8088/blog/picture/' + name
+      return devBaseUrl + '/blog/picture/' + name
     },
     play () {
       this.flvPlayer.play()

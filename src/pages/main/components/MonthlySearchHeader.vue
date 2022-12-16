@@ -23,28 +23,20 @@ export default {
   name: 'SearchHeader',
   data () {
     return {
-      selectTime: new Date(),
+      selectTime: new Date('2017/9/25 00:00:00'),
       pickerOptions: {
         disabledDate (time) {
           return time.getTime() > Date.now()
         },
         shortcuts: [{
-          text: '今天',
+          text: 'Today',
           onClick (picker) {
             picker.$emit('pick', new Date())
           }
         }, {
-          text: '昨天',
+          text: 'History',
           onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          }
-        }, {
-          text: '一周前',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            const date = new Date('2017/9/25 00:00:00')
             picker.$emit('pick', date)
           }
         }]

@@ -36,7 +36,7 @@
       title="Article Detail"
       :visible.sync="dialogVisible"
       width="70%">
-      <ArticleDetail ref="detail" :detail="detail"/>
+      <ArticleDetail ref="detail"/>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogVisible=false">Close</el-button>
       </span>
@@ -70,8 +70,8 @@ export default {
       pageNo: 1,
       pageSize: 10,
       aid: '',
-      title: '',
-      detail: {}
+      title: ''
+      // totalSize: 0
     }
   },
   methods: {
@@ -81,12 +81,16 @@ export default {
     },
     seeDetail (val) {
       this.dialogVisible = true
-      this.$store.dispatch('getArticleDetail', {
-        uid: 1,
-        aid: val.aid
-      }).then(res => {
-        this.detail = res.data
+      this.$nextTick(() => {
+        console.log(this.$refs.detail)
+        this.$refs.detail.getArticleDetail(1, val.aid)
       })
+      // this.$store.dispatch('getArticleDetail', {
+      //   uid: 1,
+      //   aid: val.aid
+      // }).then(res => {
+      //   this.detail = res.data
+      // })
     },
     search (params) {
       this.aid = params.aid

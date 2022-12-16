@@ -86,7 +86,13 @@
             <template slot="label">
               Image&Video
             </template>
-            {{ detail.abstract || 'TODO' }}
+            <div v-show="detail.video">
+              <video id="videoElement" controls autoplay muted width="40%"/>
+            </div>
+            <!-- {{ detail.imageList }} {{ detail.video }} -->
+            <div v-for="(img,index) in detail.imageList" :key="index">
+              <img :src="parseImageUrl(img)" style="width: 30%; margin-right: 3px; float: left "/>
+            </div>
           </el-descriptions-item>
         </el-descriptions>
       </div>
@@ -95,23 +101,28 @@
 </template>
 
 <script>
+import flvjs from 'flv.js'
 export default {
-  props: ['detail'],
   data () {
     return {
-      aid: ''
-      // detail: {}
+      aid: '',
+      detail: {}
     }
   },
   mounted () {
-    // this.aid = this.$route.params.id
-    // console.log("mounted")
-    // this.$store.dispatch('getArticleDetail', {
-    //   uid: 1,
-    //   aid: this.$route.params.id
-    // }).then(res => {
-    //   this.detail = res.data
-    // })
+    // if (flvjs.isSupported()) {
+    //   var videoElement = document.getElementById('videoElement')
+    //   this.flvPlayer = flvjs.createPlayer({
+    //     type: 'flv',
+    //     isLive: true,
+    //     hasAudio: false,
+    //     url: 'http://localhost:8080/blog/video/1'
+    //     // 自己的flv视频流
+    //   })
+    //   this.flvPlayer.attachMediaElement(videoElement)
+    //   this.flvPlayer.load()
+    //   this.flvPlayer.play()
+    // }
   },
   watch: {
     '$route' (to, from) {
@@ -128,7 +139,27 @@ export default {
         aid: aid
       }).then(res => {
         this.detail = res.data
+        console.log('display video')
+        if (res.data.video && flvjs.isSupported()) {
+          var videoElement = document.getElementById('videoElement')
+          this.flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            isLive: true,
+            hasAudio: false,
+            url: 'http://localhost:8080/blog/video/' + res.data.video
+            // 自己的flv视频流
+          })
+          this.flvPlayer.attachMediaElement(videoElement)
+          this.flvPlayer.load()
+          this.flvPlayer.play()
+        }
       })
+    },
+    parseImageUrl (name) {
+      return 'http://localhost:8080/blog/picture/' + name
+    },
+    play () {
+      this.flvPlayer.play()
     }
   }
 }

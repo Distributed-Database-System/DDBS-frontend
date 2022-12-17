@@ -44,10 +44,10 @@
         label="PreferTags">
       </el-table-column>
       <el-table-column
-        label="ReadingList"
+        label="Operation"
         :min-width="240">
         <template slot-scope="scope">
-          <el-button @click="seeDetail(scope.row)" type="primary" size="small">Query</el-button>
+          <el-button @click="seeDetail(scope.row)" type="primary" size="small">See Detail</el-button>
         </template>
       </el-table-column>
     </el-table>

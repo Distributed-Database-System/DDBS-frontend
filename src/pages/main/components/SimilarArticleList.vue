@@ -97,10 +97,11 @@ export default {
         this.$refs.detail.getArticleDetail(1, val.aid)
       })
     },
-    getSimilarArticleList (tag) {
+    getSimilarArticleList (params) {
       console.log('getsimilar')
       this.$store.dispatch('getSimilarArticleList', {
-        tag: tag,
+        tag: params.tag,
+        category: params.category,
         pageSize: this.pageSize,
         pageNo: this.pageNo
       }).then(res => {

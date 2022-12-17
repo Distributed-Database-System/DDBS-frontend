@@ -34,11 +34,11 @@
         label="Tag">
       </el-table-column>
       <el-table-column
-        label="See"
+        label="Operation"
         :min-width="160">
        <template slot-scope="scope">
-          <el-button @click="seeDetail(scope.row)" type="primary" size="small">Detail</el-button>
-          <el-button @click="seeSimilar(scope.row)" type="primary" size="small">Similar</el-button>
+          <el-button @click="seeDetail(scope.row)" type="primary" size="small">See Detail</el-button>
+          <el-button @click="seeSimilar(scope.row)" type="primary" size="small">Find Similar</el-button>
         </template>
        <!-- <template slot-scope="scope">
         </template> -->
@@ -121,7 +121,10 @@ export default {
       this.similarDialogVisible = true
       this.$nextTick(() => {
         console.log(this.$refs.similarArticleList)
-        this.$refs.similarArticleList.getSimilarArticleList(val.tag)
+        this.$refs.similarArticleList.getSimilarArticleList({
+          tag: val.tag,
+          category: val.category
+        })
       })
     },
     search (params) {

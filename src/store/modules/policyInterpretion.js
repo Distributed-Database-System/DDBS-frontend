@@ -21,6 +21,11 @@ const policyInterpretion = {
       const res = await fetch.post(url, data)
       return res
     },
+    getSimilarArticleList: async ({ state, dispatch, commit }, data) => {
+      let url = '/blog/listArticleByTag'
+      const res = await fetch.post(url, data)
+      return res
+    },
     getArticleDetail: async ({ state, dispatch, commit }, data) => {
       let url = '/blog/getArticle'
       const res = await fetch.post(url, data)

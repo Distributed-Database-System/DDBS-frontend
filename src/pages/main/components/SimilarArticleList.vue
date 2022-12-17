@@ -38,30 +38,18 @@
         :min-width="160">
        <template slot-scope="scope">
           <el-button @click="seeDetail(scope.row)" type="primary" size="small">Detail</el-button>
-          <el-button @click="seeSimilar(scope.row)" type="primary" size="small">Similar</el-button>
         </template>
-       <!-- <template slot-scope="scope">
-        </template> -->
       </el-table-column>
     </el-table>
 
     <el-dialog
       title="Article Detail"
       :visible.sync="dialogVisible"
-      width="70%">
+      width="70%"
+      append-to-body>
       <ArticleDetail ref="detail"/>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogVisible=false">Close</el-button>
-      </span>
-    </el-dialog>
-
-    <el-dialog
-      title="Similar Article"
-      :visible.sync="similarDialogVisible"
-      width="70%">
-      <SimilarArticleList ref="similarArticleList"/>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="similarDialogVisible=false">Close</el-button>
       </span>
     </el-dialog>
 
@@ -79,9 +67,8 @@
 
 <script>
 import ArticleDetail from '../ArticleDetail.vue'
-import SimilarArticleList from './SimilarArticleList.vue'
 export default {
-  components: { ArticleDetail, SimilarArticleList },
+  components: { ArticleDetail },
   props: {
     rank: {
       default: false
@@ -90,13 +77,12 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      similarDialogVisible: false,
       tableData: [],
       pageNo: 1,
       pageSize: 10,
       aid: '',
-      title: ''
-      // totalSize: 0
+      title: '',
+      totalSize: 0
     }
   },
   methods: {
@@ -110,45 +96,16 @@ export default {
         console.log(this.$refs.detail)
         this.$refs.detail.getArticleDetail(1, val.aid)
       })
-      // this.$store.dispatch('getArticleDetail', {
-      //   uid: 1,
-      //   aid: val.aid
-      // }).then(res => {
-      //   this.detail = res.data
-      // })
     },
-    seeSimilar (val) {
-      this.similarDialogVisible = true
-      this.$nextTick(() => {
-        console.log(this.$refs.similarArticleList)
-        this.$refs.similarArticleList.getSimilarArticleList(val.tag)
-      })
-    },
-    search (params) {
-      this.aid = params.aid
-      this.title = params.title
-      this.getArticleList()
-    },
-    getArticleList () {
-      this.$store.dispatch('getArticleList', {
-        aid: this.aid,
-        title: this.title,
+    getSimilarArticleList (tag) {
+      console.log('getsimilar')
+      this.$store.dispatch('getSimilarArticleList', {
+        tag: tag,
         pageSize: this.pageSize,
-        pageNo: this.pageNo,
-        withBody: false
+        pageNo: this.pageNo
       }).then(res => {
         this.tableData = res.data.data
         this.totalSize = res.data.total
-      })
-    },
-    getRank (type, timestamp) {
-      this.$store.dispatch('getRank', {
-        type: type,
-        timestamp: timestamp
-      }).then(res => {
-        console.log(res)
-        this.tableData = res.data
-        this.totalSize = res.data.length
       })
     }
   }

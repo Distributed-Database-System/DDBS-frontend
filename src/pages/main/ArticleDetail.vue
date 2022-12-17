@@ -120,6 +120,7 @@ export default {
   },
   methods: {
     getArticleDetail (uid, aid) {
+      console.log('getDetail')
       this.$store.dispatch('getArticleDetail', {
         uid: uid,
         aid: aid

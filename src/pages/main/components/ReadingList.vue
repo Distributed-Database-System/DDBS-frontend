@@ -34,7 +34,7 @@
       </el-table-column>
       <el-table-column
         prop="shareOrNot"
-        label="AhareOrNot">
+        label="ShareOrNot">
       </el-table-column>
       <el-table-column
         prop="comment"
